@@ -1,4 +1,4 @@
-package com.codingsample.vendomatic.model;
+package com.codingsample.vendomatic.model.currency;
 
 /**
  * The currencies a vending machine could potentially support.

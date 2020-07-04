@@ -1,4 +1,4 @@
-package com.codingsample.vendomatic.model;
+package com.codingsample.vendomatic.model.currency;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.codingsample.vendomatic.model;
+package com.codingsample.vendomatic.model.currency;
 
 /**
  * A currency type
