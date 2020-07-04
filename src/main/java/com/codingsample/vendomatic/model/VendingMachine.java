@@ -4,8 +4,13 @@ import com.codingsample.vendomatic.model.currency.Coin;
 import com.codingsample.vendomatic.model.exception.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface VendingMachine {
+
+    // Used Internally for synchronization!
+    Object getLock();
+
     /**
      * Inserts a coin denomination value {{quantity}} number of times
      * @param quantity The number of {{coin}} inserted into the machine
@@ -20,6 +25,20 @@ public interface VendingMachine {
      * @return current balance (in BigDecimal)
      */
     BigDecimal getCurrentBalance();
+
+    /**
+     * Checks the inventory for given selection index
+     * @param index selection index
+     * @return a list of inventory in the machine for selected index or for all
+     * @throws SelectionUnknownException when selection index is not valid
+     */
+    Integer getInventoryForSelection(int index) throws SelectionUnknownException;
+
+    /**
+     * Checks the inventory for given selection index
+     * @return a list of inventory in the machine for selected index or for all
+     */
+    Integer[] getEntireInventory();
 
     /**
      * Will attempt to purchase the item selected

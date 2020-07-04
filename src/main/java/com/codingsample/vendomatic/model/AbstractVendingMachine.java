@@ -1,5 +1,7 @@
 package com.codingsample.vendomatic.model;
 
+import com.codingsample.vendomatic.model.exception.SelectionUnknownException;
+
 import java.math.BigDecimal;
 
 public abstract class AbstractVendingMachine implements VendingMachine{
@@ -28,6 +30,16 @@ public abstract class AbstractVendingMachine implements VendingMachine{
     public void reset() {
         setCurrentBalance(new BigDecimal("0.00"));
         setCurrentState(initialState);
+    }
+
+    @Override
+    public Integer getInventoryForSelection(int index) throws SelectionUnknownException {
+        return getInventory().getInventoryStockQuantity(index);
+    }
+
+    @Override
+    public Integer[] getEntireInventory() {
+        return getInventory().getInventoryQuantity();
     }
 
     public void setCurrentBalance(BigDecimal currentBalance) {

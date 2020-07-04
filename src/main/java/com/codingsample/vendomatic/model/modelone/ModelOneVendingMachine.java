@@ -13,6 +13,11 @@ public class ModelOneVendingMachine extends AbstractVendingMachine {
 
     private final Object VM_LOCK = new Object();
 
+    @Override
+    public Object getLock() {
+        return VM_LOCK;
+    }
+
     /**
      * Requirement #3: Machine only holds <b>five</b> of each of the <b>three</b> beverages available to purchase in its
      * inventory.
@@ -74,9 +79,5 @@ public class ModelOneVendingMachine extends AbstractVendingMachine {
             LOGGER.info("Selection is not available for this machine! Index: " + index);
             throw e;
         }
-    }
-
-    public Object getVM_LOCK() {
-        return VM_LOCK;
     }
 }
