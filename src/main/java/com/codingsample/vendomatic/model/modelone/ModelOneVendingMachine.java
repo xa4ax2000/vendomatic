@@ -51,11 +51,11 @@ public class ModelOneVendingMachine extends AbstractVendingMachine {
     }
 
     @Override
-    public void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleCoinsException, InvalidCurrencyException{
+    public void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleOrNonExistentCoinsException, InvalidCurrencyException{
         try {
             getCurrentState().insertCoin(quantity, coin);
             setCurrentState(getHasMoneyState());
-        }catch (MachineDoesNotTakeMultipleCoinsException e){
+        }catch (MachineDoesNotTakeMultipleOrNonExistentCoinsException e){
             LOGGER.info("This machine should not be able to accept multiple coins at once. Client passed: " + quantity + " coins.");
             throw e;
         }catch (InvalidCurrencyException e){

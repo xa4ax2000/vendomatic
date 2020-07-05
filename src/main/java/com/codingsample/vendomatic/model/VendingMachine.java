@@ -14,10 +14,10 @@ public interface VendingMachine {
      * Inserts a coin denomination value {{quantity}} number of times
      * @param quantity The number of {{coin}} inserted into the machine
      * @param coin The coin denomination
-     * @throws MachineDoesNotTakeMultipleCoinsException when more than one coin is inserted at once
+     * @throws MachineDoesNotTakeMultipleOrNonExistentCoinsException when more than one coin is inserted at once
      * @throws InvalidCurrencyException when currency is not supported
      */
-    void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleCoinsException, InvalidCurrencyException;
+    void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleOrNonExistentCoinsException, InvalidCurrencyException;
 
     /**
      * Checks the balance in the vending machine at the time of calling

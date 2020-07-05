@@ -13,7 +13,7 @@ public interface VendingMachineService {
      * @param coinToQuantityMap the coins inserted into the machine
      * @return the current number of coins in the machine (?)
      */
-    int insertCoin(Map<Coin, Integer> coinToQuantityMap) throws MachineDoesNotTakeMultipleCoinsException, InvalidCurrencyException;
+    int insertCoin(Map<Coin, Integer> coinToQuantityMap) throws MachineDoesNotTakeMultipleOrNonExistentCoinsException, InvalidCurrencyException;
 
     /**
      * Will reset the coins in the machine

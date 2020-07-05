@@ -26,7 +26,7 @@ public class ModelOneVendingMachineService implements VendingMachineService{
             coinToQuantityMap.forEach( (coin, quantity) -> {
                 try {
                     modelOneVendingMachine.insertCoin(quantity, coin);
-                }catch (MachineDoesNotTakeMultipleCoinsException | InvalidCurrencyException e){
+                }catch (MachineDoesNotTakeMultipleOrNonExistentCoinsException | InvalidCurrencyException e){
                     throw new RuntimeException(e);
                 }
             });

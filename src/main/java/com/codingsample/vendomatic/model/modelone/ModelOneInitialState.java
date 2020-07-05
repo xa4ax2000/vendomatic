@@ -15,9 +15,9 @@ public class ModelOneInitialState implements State {
     }
 
     @Override
-    public void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleCoinsException, InvalidCurrencyException{
+    public void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleOrNonExistentCoinsException, InvalidCurrencyException{
         if(quantity != 1)
-            throw new MachineDoesNotTakeMultipleCoinsException();
+            throw new MachineDoesNotTakeMultipleOrNonExistentCoinsException();
         if(coin.getCurrencyCode() != CurrencyCode.USD)
             throw new InvalidCurrencyException();
         machine.setCurrentBalance(

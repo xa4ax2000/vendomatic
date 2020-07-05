@@ -16,7 +16,7 @@ public interface State {
     /**
      * Actions:
      */
-    void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleCoinsException, InvalidCurrencyException;
+    void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleOrNonExistentCoinsException, InvalidCurrencyException;
 
     Item selectItem(int index) throws SelectionUnknownException, ItemOutOfStockException, InsufficientChangeException;
 
