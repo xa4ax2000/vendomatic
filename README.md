@@ -25,10 +25,10 @@
     <h6>Setting up Maven</h6>
     <ol>
         <li>
-            Install Maven from the link above; if it is an installer, follow through the installation instructions to install Maven to your box.
+            Install Maven from the link above. Install the bin version not the src!
         </li>
         <li>
-            Make sure maven bin directory is listed in your environmental variables (Path) and MVN_HOME is correctly set.
+            Follow the tutorial in this link for assistance: <a href="https://crunchify.com/how-to-setupinstall-maven-classpath-variable-on-windows-7/">https://crunchify.com/how-to-setupinstall-maven-classpath-variable-on-windows-7/</a>
         </li>
         <li>
             If installed correctly, you should be able to check the version on a terminal via the following command:
@@ -43,12 +43,51 @@
         <br/>
         <b>Please Note</b>: This is <u>NOT</u> required for running the application.
     </p>
+</section>
+<section>
+    <h6>To run the service</h6>
+    <ol>
+        <li>
+            Clone project from github to a directory
+        </li>
+        <li>
+            Open terminal
+        </li>
+        <li>
+            Change directory to where you cloned the project 
+        </li>
+        <li>
+            run the run.sh bash script 
+            <br>
+            If you're wary of the file you can just run the following commands:
+            <br>
+            <code>
+                mvn clean package
+            </code>
+            <br>
+            <code>
+                cd target
+            </code>
+            <br>    
+            <code>
+                java -jar vendomatic-0.0.1-SNAPSHOT.jar
+            </code>
+        </li>
+        <li>
+            curl the HTTP requests you wish to test
+            <br>
+            <br>
+            Sample request message:
+            <br>
+            <code>
+                curl -X PUT "http://localhost:8080/" -H "Content-Type: application/json" -d "{\"coin\":1}" -verbose
+            </code>
+        </li>
+    </ol>
+</section>
+<section>
     <h6>Still having issues?</h6>
     <p>
         Please contact andrew.m.hyun@gmail.com for further assistance (and this README will be updated accordingly)
     </p>
-</section>
-<section>
-    // TODO - Create script to run java commands to compile and run application
-    // Add the information here
 </section>
