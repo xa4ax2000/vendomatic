@@ -108,7 +108,12 @@ public class ModelOneApiController {
             String jsonResponseBody = objectMapper.writeValueAsString(new PurchaseResponse(vendingTransactionDTO.getNumItemsVended()));
             return ResponseEntity
                     .status(200)
-                    .header("X-Coins", String.valueOf(vendingTransactionDTO.getCoinsToBeReturned()))
+                    .header("X-Coins", String.valueOf(
+                            vendingTransactionDTO.getCoinsToBeReturned()
+                                    .values().stream()
+                                    .mapToInt(Integer::intValue)
+                                    .sum()
+                    ))
                     .header("X-Inventory-Remaining", String.valueOf(vendingTransactionDTO.getRemainingItemsInSelection()))
                     .body(jsonResponseBody);
         } catch (SelectionUnknownException e) {
@@ -118,12 +123,26 @@ public class ModelOneApiController {
         } catch (InsufficientChangeException e) {
             return ResponseEntity
                     .status(403)
-                    .header("X-Coins", String.valueOf(vendingTransactionDTO.getCoinsToBeReturned()))
+                    .header("X-Coins", String.valueOf(
+                            vendingTransactionDTO.getCoinsToBeReturned()
+                                    .values().stream()
+                                    .mapToInt(Integer::intValue)
+                                    .sum()
+                    ))
                     .build();
         } catch (ItemOutOfStockException e) {
+            Integer coins = vendingTransactionDTO.getCoinsToBeReturned()
+                    .values().stream()
+                    .mapToInt(Integer::intValue)
+                    .sum();
             return ResponseEntity
                     .status(404)
-                    .header("X-Coins", String.valueOf(vendingTransactionDTO.getCoinsToBeReturned()))
+                    .header("X-Coins", String.valueOf(
+                            vendingTransactionDTO.getCoinsToBeReturned()
+                                    .values().stream()
+                                    .mapToInt(Integer::intValue)
+                                    .sum()
+                    ))
                     .build();
         } catch (Exception e){
             LOGGER.error(e.getMessage(), e);
