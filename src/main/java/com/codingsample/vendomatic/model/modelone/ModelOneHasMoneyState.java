@@ -21,7 +21,7 @@ public class ModelOneHasMoneyState implements State {
      * Therefore, both HasMoneyState and InitialState handle inserting coin value the same way!
      */
     public void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleOrNonExistentCoinsException, InvalidCurrencyException {
-        if(quantity > 1)
+        if(quantity != 1)
             throw new MachineDoesNotTakeMultipleOrNonExistentCoinsException();
         if(coin.getCurrencyCode() != CurrencyCode.USD)
             throw new InvalidCurrencyException();
