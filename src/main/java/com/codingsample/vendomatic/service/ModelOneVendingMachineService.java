@@ -83,6 +83,7 @@ public class ModelOneVendingMachineService implements VendingMachineService{
                 Upon transaction completion, any unused quarters must be dispensed back to the
                 customer.
                  */
+                modelOneVendingMachine.reset();
                 int coinsToBeReturned = modelOneVendingMachine.getCurrentBalance()
                         .subtract(item.getPrice())
                         .divideToIntegralValue(UnitedStatesCoin.QUARTER.getValue())
@@ -93,6 +94,7 @@ public class ModelOneVendingMachineService implements VendingMachineService{
                 int coinsToBeReturned = modelOneVendingMachine.getCurrentBalance()
                         .divideToIntegralValue(UnitedStatesCoin.QUARTER.getValue())
                         .intValue();
+                modelOneVendingMachine.reset();
                 coinsToQuantityMap.put(UnitedStatesCoin.QUARTER, coinsToBeReturned);
                 vendingTransactionDTO.setCoinsToBeReturned(coinsToQuantityMap);
                 throw e;
