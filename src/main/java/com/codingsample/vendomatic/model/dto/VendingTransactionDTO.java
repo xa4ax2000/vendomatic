@@ -8,6 +8,12 @@ import java.util.Map;
  * DTO object containing the details of a given selection after a completed transaction (purchase event)
  */
 public class VendingTransactionDTO {
+    private int indexToPurchase;
+
+    public VendingTransactionDTO(int indexToPurchase){
+        this.indexToPurchase = indexToPurchase;
+    }
+
     private int numItemsVended;
 
     /**
@@ -41,5 +47,9 @@ public class VendingTransactionDTO {
 
     public void setRemainingItemsInSelection(int remainingItemsInSelection) {
         this.remainingItemsInSelection = remainingItemsInSelection;
+    }
+
+    public int getIndexToPurchase() {
+        return indexToPurchase;
     }
 }

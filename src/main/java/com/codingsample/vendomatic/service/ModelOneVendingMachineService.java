@@ -70,15 +70,15 @@ public class ModelOneVendingMachineService implements VendingMachineService{
      * Constraint #4: (...) but will only dispense a single
      * beverage per transaction.
      */
-    public VendingTransactionDTO purchase(int index) throws SelectionUnknownException {
+    public void purchase(VendingTransactionDTO vendingTransactionDTO) throws SelectionUnknownException, InsufficientChangeException, ItemOutOfStockException {
         synchronized (modelOneVendingMachine.getLock()){
-            VendingTransactionDTO vendingTransactionDTO = new VendingTransactionDTO();
             Map<Coin, Integer> coinsToQuantityMap = new HashMap<>();
             try {
-                Item item = modelOneVendingMachine.selectItem(index);
+                int indexToPurchase = vendingTransactionDTO.getIndexToPurchase();
+                Item item = modelOneVendingMachine.selectItem(indexToPurchase);
                 // is this always 1?
                 vendingTransactionDTO.setNumItemsVended(1);
-                vendingTransactionDTO.setRemainingItemsInSelection(modelOneVendingMachine.getInventoryForSelection(index));
+                vendingTransactionDTO.setRemainingItemsInSelection(modelOneVendingMachine.getInventoryForSelection(indexToPurchase));
                 /*
                 Upon transaction completion, any unused quarters must be dispensed back to the
                 customer.
@@ -88,14 +88,15 @@ public class ModelOneVendingMachineService implements VendingMachineService{
                         .divideToIntegralValue(UnitedStatesCoin.QUARTER.getValue())
                         .intValue();
                 coinsToQuantityMap.put(UnitedStatesCoin.QUARTER, coinsToBeReturned);
+                vendingTransactionDTO.setCoinsToBeReturned(coinsToQuantityMap);
             }catch (InsufficientChangeException | ItemOutOfStockException e) {
                 int coinsToBeReturned = modelOneVendingMachine.getCurrentBalance()
                         .divideToIntegralValue(UnitedStatesCoin.QUARTER.getValue())
                         .intValue();
                 coinsToQuantityMap.put(UnitedStatesCoin.QUARTER, coinsToBeReturned);
+                vendingTransactionDTO.setCoinsToBeReturned(coinsToQuantityMap);
+                throw e;
             }
-            vendingTransactionDTO.setCoinsToBeReturned(coinsToQuantityMap);
-            return vendingTransactionDTO;
         }
     }
 

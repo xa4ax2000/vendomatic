@@ -2,9 +2,7 @@ package com.codingsample.vendomatic.service;
 
 import com.codingsample.vendomatic.model.currency.Coin;
 import com.codingsample.vendomatic.model.dto.VendingTransactionDTO;
-import com.codingsample.vendomatic.model.exception.InvalidCurrencyException;
-import com.codingsample.vendomatic.model.exception.MachineDoesNotTakeMultipleCoinsException;
-import com.codingsample.vendomatic.model.exception.SelectionUnknownException;
+import com.codingsample.vendomatic.model.exception.*;
 
 import java.util.Map;
 
@@ -39,9 +37,10 @@ public interface VendingMachineService {
 
     /**
      * Will attempt to purchase selection
-     * @param index the selection index
-     * @return a transaction dto that contains information regarding the transaction
+     * @param vendingTransactionDTO the DTO that contains the selection index to attempt purchase on
      * @throws SelectionUnknownException when the index selection is unknown
+     * @throws InsufficientChangeException when balance < cost of item
+     * @throws ItemOutOfStockException when items in given selection index is out of stock
      */
-    VendingTransactionDTO purchase(int index) throws SelectionUnknownException;
+    void purchase(VendingTransactionDTO vendingTransactionDTO) throws SelectionUnknownException, InsufficientChangeException, ItemOutOfStockException;
 }
