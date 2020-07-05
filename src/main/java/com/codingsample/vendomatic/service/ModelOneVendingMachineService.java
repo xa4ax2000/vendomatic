@@ -66,6 +66,10 @@ public class ModelOneVendingMachineService implements VendingMachineService{
     }
 
     @Override
+    /*
+     * Constraint #4: (...) but will only dispense a single
+     * beverage per transaction.
+     */
     public VendingTransactionDTO purchase(int index) throws SelectionUnknownException {
         synchronized (modelOneVendingMachine.getLock()){
             VendingTransactionDTO vendingTransactionDTO = new VendingTransactionDTO();
@@ -75,6 +79,10 @@ public class ModelOneVendingMachineService implements VendingMachineService{
                 // is this always 1?
                 vendingTransactionDTO.setNumItemsVended(1);
                 vendingTransactionDTO.setRemainingItemsInSelection(modelOneVendingMachine.getInventoryForSelection(index));
+                /*
+                Upon transaction completion, any unused quarters must be dispensed back to the
+                customer.
+                 */
                 int coinsToBeReturned = modelOneVendingMachine.getCurrentBalance()
                         .subtract(item.getPrice())
                         .divideToIntegralValue(UnitedStatesCoin.QUARTER.getValue())

@@ -18,8 +18,8 @@ public class ModelOneVendingMachine extends AbstractVendingMachine {
         return VM_LOCK;
     }
 
-    /**
-     * Requirement #3: Machine only holds <b>five</b> of each of the <b>three</b> beverages available to purchase in its
+    /*
+     * Constraint #3: Machine only holds five of each of the three beverages available to purchase in its
      * inventory.
      */
     public ModelOneVendingMachine(){

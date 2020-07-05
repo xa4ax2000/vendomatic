@@ -15,6 +15,11 @@ public class ModelOneHasMoneyState implements State {
     }
 
     @Override
+    /*
+     * Constraint #4: Machine will accept more than the purchase price of coins (...)
+     *
+     * Therefore, both HasMoneyState and InitialState handle inserting coin value the same way!
+     */
     public void insertCoin(int quantity, Coin coin) throws MachineDoesNotTakeMultipleCoinsException, InvalidCurrencyException {
         if(quantity != 1)
             throw new MachineDoesNotTakeMultipleCoinsException();

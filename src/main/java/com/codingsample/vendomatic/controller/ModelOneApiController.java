@@ -1,7 +1,5 @@
 package com.codingsample.vendomatic.controller;
 
-import com.codingsample.vendomatic.model.VendingMachine;
-import com.codingsample.vendomatic.model.currency.UnitedStatesCoin;
 import com.codingsample.vendomatic.model.request.InsertCoinRequest;
 import com.codingsample.vendomatic.service.VendingMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+/*
+ * Constraint #5: All test interactions will be performed with a single content type of “application/json”.
+ *
+ * If you check all of the Request Mappings, it consumes application/json as content type!
+ */
 public class ModelOneApiController {
 
     public static final String MAIN = "/";
@@ -33,10 +36,13 @@ public class ModelOneApiController {
     }
 
     /**
-     * Constraint #1: Machine only accepts US quarters - you physically cannot put anything else in, and you
-     * can only put one coin in at a time.
+     * Will validate request
      * @param insertCoinRequest the request to validate
      * @throws Exception when coin quantity in request is a value other than 1
+     */
+    /*
+     * Constraint #1: Machine only accepts US quarters - you physically cannot put anything else in, and you
+     * can only put one coin in at a time.
      */
     private void validateInsertCoinRequest(InsertCoinRequest insertCoinRequest) throws Exception{
         if(insertCoinRequest.getCoinQuantity()!=1){
