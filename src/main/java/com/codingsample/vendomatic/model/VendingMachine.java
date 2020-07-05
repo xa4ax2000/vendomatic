@@ -4,7 +4,6 @@ import com.codingsample.vendomatic.model.currency.Coin;
 import com.codingsample.vendomatic.model.exception.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public interface VendingMachine {
 
