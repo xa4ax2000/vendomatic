@@ -1,10 +1,17 @@
 package com.codingsample.vendomatic.controller;
 
+import com.codingsample.vendomatic.model.currency.Coin;
+import com.codingsample.vendomatic.model.currency.UnitedStatesCoin;
+import com.codingsample.vendomatic.model.exception.InvalidCurrencyException;
+import com.codingsample.vendomatic.model.exception.MachineDoesNotTakeMultipleCoinsException;
 import com.codingsample.vendomatic.model.request.InsertCoinRequest;
 import com.codingsample.vendomatic.service.VendingMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 /*
@@ -23,15 +30,16 @@ public class ModelOneApiController {
 
     @RequestMapping(value = MAIN, consumes = "application/json", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity<?> insertCoin(@RequestBody InsertCoinRequest insertCoinRequest){
-        // Validate Request
         try {
+            // Validate Request
             validateInsertCoinRequest(insertCoinRequest);
-        }catch (Exception e){
+            Map<Coin, Integer> coinToQuantityMap = new HashMap<>();
+            // Constraint #1: Machine only accepts US quarters
+            coinToQuantityMap.put(UnitedStatesCoin.QUARTER, insertCoinRequest.getCoinQuantity());
+            service.insertCoin(coinToQuantityMap);
+        } catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
-        // This model only uses Quarters!
-
-
         return ResponseEntity.ok().build(); // todo
     }
 
@@ -41,8 +49,7 @@ public class ModelOneApiController {
      * @throws Exception when coin quantity in request is a value other than 1
      */
     /*
-     * Constraint #1: Machine only accepts US quarters - you physically cannot put anything else in, and you
-     * can only put one coin in at a time.
+     * Constraint #1: (...) you can only put one coin in at a time.
      */
     private void validateInsertCoinRequest(InsertCoinRequest insertCoinRequest) throws Exception{
         if(insertCoinRequest.getCoinQuantity()!=1){
