@@ -5,6 +5,9 @@ import com.codingsample.vendomatic.model.Item;
 import java.math.BigDecimal;
 
 public enum  ModelOneItem implements Item {
+    /**
+     * Constraint #2: Purchase price of an item is two US quarters.
+     */
     SOME_ITEM("SOME_ITEM", new BigDecimal("0.50"));
 
     private final String NAME;
